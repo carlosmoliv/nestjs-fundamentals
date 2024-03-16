@@ -24,7 +24,7 @@ export class CoffeeController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.coffeeService.findOne(id);
   }
 
@@ -39,7 +39,7 @@ export class CoffeeController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.coffeeService.remove(id);
   }
 }
