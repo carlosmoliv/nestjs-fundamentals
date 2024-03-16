@@ -9,12 +9,15 @@ import {
   Query,
 } from '@nestjs/common';
 import { CoffeeService } from './coffee.service';
+import { CreateCoffeeDto } from './dtos/create-coffee.dto';
+import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeeController {
   constructor(private readonly coffeeService: CoffeeService) {}
 
   @Get()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   findAll(@Query() paginationQuery) {
     // const { limit, offset } = paginationQuery;
     return this.coffeeService.findAll();
@@ -26,13 +29,13 @@ export class CoffeeController {
   }
 
   @Post()
-  create(@Body() body) {
-    return this.coffeeService.create(body);
+  create(@Body() createCoffeeDto: CreateCoffeeDto) {
+    return this.coffeeService.create(createCoffeeDto);
   }
 
   @Patch(':id')
-  update(@Param() id: string, @Body() body) {
-    return this.coffeeService.update(id, body);
+  update(@Param() id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+    return this.coffeeService.update(id, updateCoffeeDto);
   }
 
   @Delete(':id')
