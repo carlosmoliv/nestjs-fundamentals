@@ -7,6 +7,8 @@ import { Flavor } from './entities/flavor.entity';
 import { Event } from '../events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffee.constants';
 import { DataSource } from 'typeorm';
+import { ConfigModule } from '@nestjs/config';
+import coffeeConfig from './coffee.config';
 
 // class MockCoffeeService {}
 
@@ -22,7 +24,10 @@ export class CoffeeBrandsFactory {
 }
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
+  imports: [
+    TypeOrmModule.forFeature([Coffee, Flavor, Event]),
+    ConfigModule.forFeature(coffeeConfig),
+  ],
   controllers: [CoffeeController],
   // Using other implementation of a provider
   // providers: [{ provide: CoffeeService, useValue: new MockCoffeeService() }],
@@ -45,7 +50,7 @@ export class CoffeeBrandsFactory {
       provide: COFFEE_BRANDS,
       useFactory: async (dataSource: DataSource): Promise<string[]> => {
         const coffeeBrands = await Promise.resolve(['brand1', 'brand2']);
-        console.log('Async Factory, ');
+        console.log('Async Factory');
         return coffeeBrands;
       },
       inject: [DataSource],
