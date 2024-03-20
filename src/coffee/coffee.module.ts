@@ -29,11 +29,12 @@ export class CoffeeBrandsFactory {
     ConfigModule.forFeature(coffeeConfig),
   ],
   controllers: [CoffeeController],
-  // Using other implementation of a provider
-  // providers: [{ provide: CoffeeService, useValue: new MockCoffeeService() }],
-
   providers: [
     CoffeeService,
+
+    // Example of custom implementation of the CoffeeService provider
+    // { provide: CoffeeService, useValue: new MockCoffeeService() }
+
     // Example of a custom provider using strings
     // { provide: COFFEE_BRANDS, useValue: ['brand1', 'brand2'] },
 
