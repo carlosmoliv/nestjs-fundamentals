@@ -8,16 +8,16 @@ import {
   Patch,
   Post,
   Query,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CoffeeService } from './coffee.service';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
 import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { REQUEST } from '@nestjs/core';
+import { Public } from '../common/decorators/public.decorator';
 
 // @UsePipes(ValidationPipe) // Controller Scoped. Binding a ValidationPipe every route handle defined within this controller
+
 @Controller('coffees')
 export class CoffeeController {
   constructor(
@@ -25,7 +25,8 @@ export class CoffeeController {
     @Inject(REQUEST) private readonly request: Request,
   ) {}
 
-  @UsePipes(ValidationPipe) // Method scoped
+  // @UsePipes(ValidationPipe) // Method scoped
+  @Public()
   @Get()
   findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.coffeeService.findAll(paginationQuery);

@@ -31,7 +31,6 @@ export class CoffeeBrandsFactory {
   controllers: [CoffeeController],
   providers: [
     CoffeeService,
-
     // Example of custom implementation of the CoffeeService provider
     // { provide: CoffeeService, useValue: new MockCoffeeService() }
 
