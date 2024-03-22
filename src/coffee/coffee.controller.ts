@@ -17,9 +17,11 @@ import { REQUEST } from '@nestjs/core';
 import { Public } from '../common/decorators/public.decorator';
 import { ParseIntPipe } from '../common/pipes/parse-int/parse-int.pipe';
 import { Protocol } from '../common/decorators/protocol.decorator';
+import { ApiForbiddenResponse, ApiTags } from '@nestjs/swagger';
 
 // @UsePipes(ValidationPipe) // Controller Scoped. Binding a ValidationPipe every route handle defined within this controller
 
+@ApiTags('coffees')
 @Controller('coffees')
 export class CoffeeController {
   constructor(
@@ -27,6 +29,7 @@ export class CoffeeController {
     @Inject(REQUEST) private readonly request: Request,
   ) {}
 
+  @ApiForbiddenResponse({ description: 'Forbidden' })
   // @UsePipes(ValidationPipe) // Method scoped
   @Public()
   @Get()
