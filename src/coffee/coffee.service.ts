@@ -24,12 +24,12 @@ export class CoffeeService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
-    @Inject(COFFEE_BRANDS) coffeeBrands: string[],
-    @Inject(coffeeConfig.KEY)
-    private readonly coffeeConfiguration: ConfigType<typeof coffeeConfig>,
+    // @Inject(COFFEE_BRANDS) coffeeBrands: string[],
+    // @Inject(coffeeConfig.KEY)
+    // private readonly coffeeConfiguration: ConfigType<typeof coffeeConfig>,
   ) {
-    console.log(coffeeBrands);
-    console.log(coffeeConfiguration.foo);
+    // console.log(coffeeBrands);
+    // console.log(coffeeConfiguration.foo);
   }
 
   findAll(paginationQuery: PaginationQueryDto) {
