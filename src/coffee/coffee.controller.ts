@@ -48,8 +48,8 @@ export class CoffeeController {
   }
 
   @Post()
-  create(@Body() createCoffeeDto: CreateCoffeeDto) {
-    this.coffeeService.create(createCoffeeDto);
+  async create(@Body() createCoffeeDto: CreateCoffeeDto) {
+    return this.coffeeService.create(createCoffeeDto);
   }
 
   // ValidationPipe can also be used in a specific parameter, @Body(ValidationPipe)

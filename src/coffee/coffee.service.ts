@@ -50,7 +50,7 @@ export class CoffeeService {
     return coffee;
   }
 
-  async create(createCoffeeDto: CreateCoffeeDto): Promise<void> {
+  async create(createCoffeeDto: CreateCoffeeDto): Promise<Coffee> {
     const flavors = await Promise.all(
       createCoffeeDto.flavors.map((name) => this.preloadFlavorByName(name)),
     );
@@ -58,7 +58,7 @@ export class CoffeeService {
       ...createCoffeeDto,
       flavors,
     });
-    await this.coffeeRepository.save(coffee);
+    return this.coffeeRepository.save(coffee);
   }
 
   async update(id: string, updateCoffeeDto: UpdateCoffeeDto): Promise<void> {
