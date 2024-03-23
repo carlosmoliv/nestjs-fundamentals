@@ -1,10 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CoffeeModule } from '../../src/coffee/coffee.module';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as request from 'supertest';
+import { CreateCoffeeDto } from '../../src/coffee/dtos/create-coffee.dto';
 
 describe('Coffee e2e tests', () => {
   let app: INestApplication;
+  const coffee = {
+    name: 'Black Coffee',
+    brand: 'Brand',
+    flavors: ['without sugar'],
+  };
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -40,7 +47,24 @@ describe('Coffee e2e tests', () => {
     await app.close();
   });
 
-  it.todo('POST /coffees');
+  describe('POST /coffees', () => {
+    it('Create a coffee', async () => {
+      const { status, body } = await request(app.getHttpServer())
+        .post('/coffees')
+        .send(coffee as CreateCoffeeDto);
+
+      expect(status).toBe(HttpStatus.CREATED);
+      expect(body).toEqual(
+        expect.objectContaining({
+          ...coffee,
+          flavors: expect.arrayContaining(
+            coffee.flavors.map((name) => expect.objectContaining({ name })),
+          ),
+        }),
+      );
+    });
+  });
+
   it.todo('GET /coffees/:id');
   it.todo('PATCH /coffees/:id');
   it.todo('DELETE /coffees/:id');
