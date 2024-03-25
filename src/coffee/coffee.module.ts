@@ -3,6 +3,7 @@ import { CoffeeController } from './coffee.controller';
 import { CoffeeService } from './coffee.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Coffee, CoffeeSchema } from './entities/coffee.entity';
+import { Event, EventSchema } from '../events/entities/event.entity';
 
 @Module({
   imports: [
@@ -12,6 +13,11 @@ import { Coffee, CoffeeSchema } from './entities/coffee.entity';
         // '.name' is a way to get the function name from a javascript class
         name: Coffee.name,
         schema: CoffeeSchema,
+      },
+
+      {
+        name: Event.name,
+        schema: EventSchema,
       },
     ]),
   ],
