@@ -11,6 +11,7 @@ import {
 import { CoffeeService } from './coffee.service';
 import { CreateCoffeeDto } from './dtos/create-coffee.dto';
 import { UpdateCoffeeDto } from './dtos/update-coffee.dto';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Controller('coffees')
 export class CoffeeController {
@@ -18,9 +19,9 @@ export class CoffeeController {
 
   @Get()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  findAll(@Query() paginationQuery) {
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery;
-    return this.coffeeService.findAll();
+    return this.coffeeService.findAll(paginationQuery);
   }
 
   @Get(':id')
